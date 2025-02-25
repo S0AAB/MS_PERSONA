@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MS_PERSONA
+namespace MS_PERSONA.Models
 {
     using System;
     using System.Data.Entity;

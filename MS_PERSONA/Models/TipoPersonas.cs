@@ -7,24 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MS_PERSONA
+namespace MS_PERSONA.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
-    public partial class Personas
+    public partial class TipoPersonas
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TipoPersonas()
+        {
+            this.Personas = new HashSet<Personas>();
+        }
+    
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public int TipoPersonaId { get; set; }
-        public Nullable<System.DateTime> FechaNacimiento { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
-        public bool Activo { get; set; }
-
-        [JsonIgnore]
-        public virtual TipoPersonas TipoPersonas { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Personas> Personas { get; set; }
     }
 }

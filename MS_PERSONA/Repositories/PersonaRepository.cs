@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data.Entity;
 using MS_PERSONA.Interfaces;
+using MS_PERSONA.Models;
 
 namespace MS_PERSONA.Repositories
 {

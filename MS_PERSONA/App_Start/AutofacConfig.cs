@@ -5,7 +5,7 @@ using System.Web.Http;
 using MS_PERSONA.Interfaces;
 using MS_PERSONA.Repositories;
 using MS_PERSONA.Services;
-using MS_PERSONA;
+using MS_PERSONA.Models;
 
 public class AutofacConfig
 {

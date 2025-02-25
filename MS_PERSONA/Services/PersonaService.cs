@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using MS_PERSONA.Interfaces;
-
+using MS_PERSONA.Models;
 
 namespace MS_PERSONA.Services
 {
