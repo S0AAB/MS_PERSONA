@@ -1,125 +1,91 @@
-﻿
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
+using MS_PERSONA.Interfaces;
 
 
 namespace MS_PERSONA.Controllers
 {
     public class PersonasController : ApiController
     {
-        private PersonasDBEntities db = new PersonasDBEntities();
+        private readonly IPersonaService _personaService;
 
-
-        //Se puede cambiar la ruta manualmente con el decorador [Route("api/Personas")]
+        //Inyeccion depedencia
+        public PersonasController(IPersonaService personaService)
+        {
+            _personaService = personaService;
+        }
 
         // GET: api/Personas
-        public IQueryable<Personas> GetPersonas()
+        public IEnumerable<Personas> GetPersonas()
         {
-            return db.Personas;
+            return _personaService.GetAll();
         }
 
         // GET: api/Personas/5
         [ResponseType(typeof(Personas))]
         public IHttpActionResult GetPersonas(int id)
         {
-            Personas personas = db.Personas.Find(id);
-            if (personas == null)
-            {
+            var persona = _personaService.GetById(id);
+            if (persona == null)
+                return NotFound();
+
+            return Ok(persona);
+        }
+
+
+
+        [ResponseType(typeof(TipoPersonas))]
+        [Route("tipos-persona")]
+        public IHttpActionResult GetTipoPersonas(int id)
+        {
+            var tipoPersona = _personaService.GetTipoPersonasById(id);
+            if (tipoPersona == null) {
                 return NotFound();
             }
 
-            return Ok(personas);
-        }
-
-        // PUT: api/Personas/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutPersonas(int id, Personas personas)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != personas.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(personas).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PersonasExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(tipoPersona);
         }
 
         // POST: api/Personas
         [ResponseType(typeof(Personas))]
-        public IHttpActionResult PostPersonas(Personas personas)
-        {
+        public IHttpActionResult PostPersonas(Personas persona)
+        {   
 
-            if (db.Personas.Any(p => p.Email == personas.Email))
-            {
-                return BadRequest("El correo electrónico ya está registrado.");
-            }
-
+            
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            db.Personas.Add(personas);
-            db.SaveChanges();
+            //Validacion de email en el servicio
+            if (!_personaService.Create(persona))
+                return BadRequest("El correo electrónico ya está registrado.");
 
-            return CreatedAtRoute("DefaultApi", new { id = personas.Id }, personas);
+
+            //Devuelve la persona creada si es correcto
+            return CreatedAtRoute("DefaultApi", new { id = persona.Id }, persona);
+        }
+
+        // PUT: api/Personas/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutPersonas(int id, Personas persona)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_personaService.Update(id, persona))
+                return NotFound();
+
+            return StatusCode(System.Net.HttpStatusCode.NoContent);
         }
 
         // DELETE: api/Personas/5
         [ResponseType(typeof(Personas))]
         public IHttpActionResult DeletePersonas(int id)
         {
-            Personas personas = db.Personas.Find(id);
-            if (personas == null)
-            {
+            if (!_personaService.Delete(id))
                 return NotFound();
-            }
 
-            db.Personas.Remove(personas);
-            db.SaveChanges();
-
-            return Ok(personas);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool PersonasExists(int id)
-        {
-            return db.Personas.Count(e => e.Id == id) > 0;
+            return Ok();
         }
     }
 }

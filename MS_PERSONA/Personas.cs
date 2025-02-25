@@ -24,8 +24,7 @@ namespace MS_PERSONA
         public string Email { get; set; }
         public bool Activo { get; set; }
 
-
-        [JsonIgnore]  // Evita la referencia circular
+        [JsonIgnore]
         public virtual TipoPersonas TipoPersonas { get; set; }
     }
 }

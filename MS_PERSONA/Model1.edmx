@@ -25,7 +25,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Personas__TipoPe__4BAC3F29">
+        <Association Name="FK__Personas__TipoPe__3C69FB99">
           <End Role="TipoPersonas" Type="Self.TipoPersonas" Multiplicity="1" />
           <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -40,7 +40,7 @@
         <EntityContainer Name="PersonasDBModelStoreContainer">
           <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoPersonas" EntityType="Self.TipoPersonas" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Personas__TipoPe__4BAC3F29" Association="Self.FK__Personas__TipoPe__4BAC3F29">
+          <AssociationSet Name="FK__Personas__TipoPe__3C69FB99" Association="Self.FK__Personas__TipoPe__3C69FB99">
             <End Role="TipoPersonas" EntitySet="TipoPersonas" />
             <End Role="Personas" EntitySet="Personas" />
           </AssociationSet>
@@ -62,7 +62,7 @@
           <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="TipoPersonas" Relationship="Self.FK__Personas__TipoPe__4BAC3F29" FromRole="Personas" ToRole="TipoPersonas" />
+          <NavigationProperty Name="TipoPersonas" Relationship="Self.FK__Personas__TipoPe__3C69FB99" FromRole="Personas" ToRole="TipoPersonas" />
         </EntityType>
         <EntityType Name="TipoPersonas">
           <Key>
@@ -70,9 +70,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Personas" Relationship="Self.FK__Personas__TipoPe__4BAC3F29" FromRole="TipoPersonas" ToRole="Personas" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK__Personas__TipoPe__3C69FB99" FromRole="TipoPersonas" ToRole="Personas" />
         </EntityType>
-        <Association Name="FK__Personas__TipoPe__4BAC3F29">
+        <Association Name="FK__Personas__TipoPe__3C69FB99">
           <End Role="TipoPersonas" Type="Self.TipoPersonas" Multiplicity="1" />
           <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -87,7 +87,7 @@
         <EntityContainer Name="PersonasDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Personas" EntityType="Self.Personas" />
           <EntitySet Name="TipoPersonas" EntityType="Self.TipoPersonas" />
-          <AssociationSet Name="FK__Personas__TipoPe__4BAC3F29" Association="Self.FK__Personas__TipoPe__4BAC3F29">
+          <AssociationSet Name="FK__Personas__TipoPe__3C69FB99" Association="Self.FK__Personas__TipoPe__3C69FB99">
             <End Role="TipoPersonas" EntitySet="TipoPersonas" />
             <End Role="Personas" EntitySet="Personas" />
           </AssociationSet>
