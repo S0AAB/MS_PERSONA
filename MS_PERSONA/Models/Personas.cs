@@ -9,6 +9,7 @@
 
 namespace MS_PERSONA.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -22,7 +23,8 @@ namespace MS_PERSONA.Models
         public string Telefono { get; set; }
         public string Email { get; set; }
         public bool Activo { get; set; }
-    
+
+        [JsonIgnore]        
         public virtual TipoPersonas TipoPersonas { get; set; }
     }
 }

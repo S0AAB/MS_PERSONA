@@ -17,13 +17,15 @@ namespace MS_PERSONA.Controllers
         }
 
         // GET: api/Personas
+        [HttpGet]
         public IEnumerable<Personas> GetPersonas()
         {
             return _personaService.GetAll();
         }
 
         // GET: api/Personas/5
-        [ResponseType(typeof(Personas))]
+       
+        [HttpGet]
         public IHttpActionResult GetPersonas(int id)
         {
             var persona = _personaService.GetById(id);
@@ -35,8 +37,9 @@ namespace MS_PERSONA.Controllers
 
 
 
-        [ResponseType(typeof(TipoPersonas))]
+
         [Route("tipos-persona")]
+        [HttpGet]
         public IHttpActionResult GetTipoPersonas(int id)
         {
             var tipoPersona = _personaService.GetTipoPersonasById(id);
@@ -48,6 +51,7 @@ namespace MS_PERSONA.Controllers
         }
 
         // POST: api/Personas
+        [HttpPost]
         [ResponseType(typeof(Personas))]
         public IHttpActionResult PostPersonas(Personas persona)
         {   
@@ -66,6 +70,7 @@ namespace MS_PERSONA.Controllers
         }
 
         // PUT: api/Personas/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPersonas(int id, Personas persona)
         {
@@ -79,6 +84,7 @@ namespace MS_PERSONA.Controllers
         }
 
         // DELETE: api/Personas/5
+        [HttpDelete]
         [ResponseType(typeof(Personas))]
         public IHttpActionResult DeletePersonas(int id)
         {
