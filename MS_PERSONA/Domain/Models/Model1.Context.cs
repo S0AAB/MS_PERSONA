@@ -12,19 +12,19 @@ namespace MS_PERSONA.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class PersonasDBEntities : DbContext
     {
         public PersonasDBEntities()
             : base("name=PersonasDBEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Personas> Personas { get; set; }
         public virtual DbSet<TipoPersonas> TipoPersonas { get; set; }
     }
