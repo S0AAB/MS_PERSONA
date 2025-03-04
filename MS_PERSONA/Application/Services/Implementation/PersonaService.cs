@@ -55,8 +55,17 @@ namespace MS_PERSONA.Services
                 return false;
 
             var persona = _personaRepository.GetById(id);
+            
+
+            //Verificacion de email no utilizado al actualizar
+            if ((_personaRepository.EmailExists(persona.Email)) && (personaDto.Email!=persona.Email))
+                return false;
+
+            var idAntiguo = persona.Id;
             _mapper.Map(personaDto, persona);
 
+            //Mantiene el mismo ID en caso de que se cambie en el body
+            persona.Id = idAntiguo;
             _personaRepository.Update(persona);
             return true;
         }

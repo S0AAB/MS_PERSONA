@@ -16,6 +16,7 @@ namespace MS_PERSONA.Application.Mappings
             // Ignora coleccion personas
             CreateMap<PersonaDto, Personas>()
                 .ForMember(dest => dest.TipoPersonas, opt => opt.Ignore());
+                
         }
     }   
 
