@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,6 +11,9 @@ namespace MS_PERSONA
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de Web API
+
+   
+
 
             // Rutas de Web API
             config.MapHttpAttributeRoutes();
