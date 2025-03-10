@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MS_PERSONA.Application.Dto;
-using MS_PERSONA.Application.Dto.MS_PERSONA.Application.Dto;
 using MS_PERSONA.Interfaces;
 using MS_PERSONA.Domain.Models;
+using MS_PERSONA.Application.Dto.MS_PERSONA.Application.Dto;
 
 namespace MS_PERSONA.Services
 {
@@ -35,19 +35,33 @@ namespace MS_PERSONA.Services
         }
 
         public TipoPersonaDto GetTipoPersonasById(int id)
+
         {
-            return _mapper.Map<TipoPersonaDto>(_personaRepository.GetTipoPersonasById(id));
+            var tipoPersona= _personaRepository.GetTipoPersonasById(id);
+            if(tipoPersona==null)
+                throw new KeyNotFoundException("No se encontró el tipo de persona.");
+
+            return _mapper.Map<TipoPersonaDto>(tipoPersona);
         }
 
         public async Task<bool> Create(PersonaDto personaDto)
         {
-            if (_personaRepository.EmailExists(personaDto.Email))
+            if (personaDto is null ||
+                string.IsNullOrWhiteSpace(personaDto.Nombre) ||
+                string.IsNullOrWhiteSpace(personaDto.Apellido) ||
+                string.IsNullOrWhiteSpace(personaDto.Email) ||
+                string.IsNullOrWhiteSpace(personaDto.Telefono) ||
+                personaDto.TipoPersonaId <= 0 ||
+                _personaRepository.EmailExists(personaDto.Email))
+            {
                 return false;
+            }
 
             var persona = _mapper.Map<Personas>(personaDto);
             _personaRepository.Add(persona);
             return true;
         }
+
 
         public async Task<bool> Update(int id, PersonaDto personaDto)
         {
@@ -58,7 +72,7 @@ namespace MS_PERSONA.Services
             
 
             //Verificacion de email no utilizado al actualizar
-            if ((_personaRepository.EmailExists(persona.Email)) && (personaDto.Email!=persona.Email))
+            if ((_personaRepository.EmailExists(personaDto.Email)) && (personaDto.Email!=persona.Email))
                 return false;
 
             var idAntiguo = persona.Id;

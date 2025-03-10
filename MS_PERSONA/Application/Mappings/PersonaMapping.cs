@@ -13,10 +13,7 @@ namespace MS_PERSONA.Application.Mappings
             
             CreateMap<Personas, PersonaDto>().ReverseMap();
 
-            // Ignora coleccion personas
-            CreateMap<PersonaDto, Personas>()
-                .ForMember(dest => dest.TipoPersonas, opt => opt.Ignore());
-                
+                   
         }
     }   
 

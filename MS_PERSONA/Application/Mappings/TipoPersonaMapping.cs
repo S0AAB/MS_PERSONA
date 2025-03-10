@@ -13,9 +13,7 @@ using MS_PERSONA.Domain.Models;
             
             CreateMap<TipoPersonas, TipoPersonaDto>().ReverseMap();
 
-            // Ignora coleccion personas
-            CreateMap<TipoPersonaDto, TipoPersonas>()
-                .ForMember(dest => dest.Personas, opt => opt.Ignore());
+           
         }
     }
 }
